@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Store Manager</string>
+    <string name="amount_label_text">数量</string>
+    <string name="amount_view">9,999</string>
+    <string name="plus_button_text">+</string>
+    <string name="minus_button_text">-</string>
+    <string name="add_button_text">追加</string>
+    <string name="current_timer_text">00:00:00</string>
+    <string name="placeholder_comment">コメント</string>
+    <string name="clear_button_text">クリア</string>
+    <string name="show_amount_button_text">選択された合計数量</string>
 </resources>
