@@ -15,8 +15,9 @@ class StoreListAdapter(private val context: Context) : BaseAdapter() {
 
     override fun getItem(position: Int): Any = storeList[position]
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View =
+        ((convertView as? StoreView) ?: StoreView(context)).apply {
+            setStore(storeList[position])
+        }
 
 }
