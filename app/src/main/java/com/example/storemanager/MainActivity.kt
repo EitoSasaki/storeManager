@@ -19,7 +19,9 @@ class MainActivity : AppCompatActivity() {
     private val dateFormat = SimpleDateFormat("HH:mm:ss")
 
     //在庫ダミーデータ
-    private val store = Store("11:40:23", "300", "キャベツ")
+    private val storeList : List<Store> = listOf(
+        Store("11:40:23", "300", "キャベツ"),
+        Store("12:56:21", "30", "にんじん"))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val storeListAdapter = StoreListAdapter(applicationContext)
-        storeListAdapter.storeList = listOf(store)
+        storeListAdapter.storeList = storeList
 
         val storeListView : ListView = findViewById(R.id.storeList) as ListView
         storeListView.adapter = storeListAdapter
