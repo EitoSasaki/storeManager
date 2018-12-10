@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         plusButton.setOnClickListener {
             if (amount < 9999) {
                 amount++
-                amountTextView.text = formatNumber(amount)
+                amountTextView.text = formatAmountValue(amount)
             }
         }
 
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         minusButton.setOnClickListener {
             if (amount > 0) {
                 amount--
-                amountTextView.text = formatNumber(amount)
+                amountTextView.text = formatAmountValue(amount)
             }
         }
 
@@ -60,8 +60,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun formatNumber(value: Int): String {
-        return NumberFormat.getNumberInstance().format(value.toLong())
+    private fun formatAmountValue(amount: Int): String {
+        return NumberFormat.getNumberInstance().format(amount.toLong())
     }
 
 }
