@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     private var storeAmount : Int = 0
     private var currentTime : String = "00:00:00"
     private val timerHandler = Handler()
-    private val dateFormat = SimpleDateFormat("HH:mm:ss")
+    private val dateFormat = SimpleDateFormat("HH:mm:ss", Locale.US)
 
     //在庫ダミーデータ
     private val storeList : List<Store> = listOf(
