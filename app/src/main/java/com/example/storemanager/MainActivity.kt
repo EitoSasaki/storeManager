@@ -13,7 +13,7 @@ import kotlin.concurrent.timer
 
 class MainActivity : AppCompatActivity() {
 
-    private var amount : Int = 0
+    private var storeAmount : Int = 0
     private var currentTime : String = "00:00:00"
     private val timerHandler = Handler()
     private val dateFormat = SimpleDateFormat("HH:mm:ss")
@@ -29,17 +29,17 @@ class MainActivity : AppCompatActivity() {
 
         val plusButton : Button = findViewById(R.id.plusButton) as Button
         plusButton.setOnClickListener {
-            if (amount < 9999) {
-                amount++
-                amountTextView.text = formatAmountValue(amount)
+            if (storeAmount < 9999) {
+                storeAmount++
+                amountTextView.text = formatAmountValue(storeAmount)
             }
         }
 
         val minusButton : Button = findViewById(R.id.minusButton) as Button
         minusButton.setOnClickListener {
-            if (amount > 0) {
-                amount--
-                amountTextView.text = formatAmountValue(amount)
+            if (storeAmount > 0) {
+                storeAmount--
+                amountTextView.text = formatAmountValue(storeAmount)
             }
         }
 
@@ -60,8 +60,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun formatAmountValue(amount: Int): String {
-        return NumberFormat.getNumberInstance().format(amount.toLong())
+    private fun formatAmountValue(storeAmount: Int): String {
+        return NumberFormat.getNumberInstance().format(storeAmount.toLong())
     }
 
 }
