@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Store Manager</string>
     <string name="amount_label_text">数量</string>
-    <string name="amount_view">9,999</string>
+    <string name="amount_view">0</string>
     <string name="plus_button_text">+</string>
     <string name="minus_button_text">-</string>
     <string name="add_button_text">追加</string>
