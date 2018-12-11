@@ -20,8 +20,8 @@ class MainActivity : AppCompatActivity() {
 
     //在庫ダミーデータ
     private val storeList : List<Store> = listOf(
-        Store("11:40:23", "300", "キャベツ"),
-        Store("12:56:21", "30", "にんじん"))
+        Store("11:40:23", 300, "キャベツ"),
+        Store("12:56:21", 30, "にんじん"))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

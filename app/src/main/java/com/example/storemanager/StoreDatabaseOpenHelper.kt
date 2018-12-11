@@ -11,9 +11,9 @@ class StoreDatabaseOpenHelper(context: Context) : SQLiteOpenHelper(context, "Sto
         db?.execSQL(
             "CREATE TABLE " + "store" + " ( " +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    "type integer not null, "+
-                    "date text not null, " +
-                    "memo text not null " +
+                    "time text not null, "+
+                    "amount INTEGER not null, " +
+                    "comment text not null " +
                     ");")
                     */
     }

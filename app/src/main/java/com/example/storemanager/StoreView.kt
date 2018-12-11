@@ -31,7 +31,7 @@ class StoreView : FrameLayout {
 
     fun setStore(store: Store) {
         timeTextView?.text = store.time
-        amountTextView?.text = store.amount
+        amountTextView?.text = store.amount.toString()
         commentTextView?.text = store.comment
     }
 
