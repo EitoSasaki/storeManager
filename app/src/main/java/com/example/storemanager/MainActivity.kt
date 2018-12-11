@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ListView
 import android.widget.TextView
 import java.text.NumberFormat
@@ -15,6 +16,8 @@ class MainActivity : AppCompatActivity() {
 
     private var storeAmount : Int = 0
     private var currentTime : String = "00:00:00"
+    private var comment = ""
+
     private val timerHandler = Handler()
     private val dateFormat = SimpleDateFormat("HH:mm:ss", Locale.US)
 
@@ -28,8 +31,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val amountTextView : TextView = findViewById(R.id.amountValue) as TextView
-
         val plusButton : Button = findViewById(R.id.plusButton) as Button
+        val minusButton : Button = findViewById(R.id.minusButton) as Button
+        val currentTimerView = findViewById(R.id.currentTimer) as TextView
+        val commentEditText = findViewById(R.id.inputComment) as EditText
+        val addButton : Button = findViewById(R.id.addButton) as Button
+
+        val storeManagerDB = StoreManagerDatabase(this)
+
+
         plusButton.setOnClickListener {
             if (storeAmount < 9999) {
                 storeAmount++
@@ -37,7 +47,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val minusButton : Button = findViewById(R.id.minusButton) as Button
         minusButton.setOnClickListener {
             if (storeAmount > 0) {
                 storeAmount--
@@ -45,13 +54,20 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val currentTimerView = findViewById(R.id.currentTimer) as TextView
         timer ("currentTime", period = 1000) {
             val calendar = Calendar.getInstance()
             timerHandler.post {
                 currentTime = dateFormat.format(calendar.getTime())
                 currentTimerView.text = currentTime
             }
+        }
+
+        addButton.setOnClickListener {
+            comment = commentEditText.text.toString()
+            if(comment == ""){
+                comment = "未入力"
+            }
+            storeManagerDB.addStore(currentTime, storeAmount, comment)
         }
 
         val storeListAdapter = StoreListAdapter(applicationContext)
