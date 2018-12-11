@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper
 class StoreDatabaseOpenHelper(context: Context) : SQLiteOpenHelper(context, "StoreManager", null, 1) {
 
     override fun onCreate(db: SQLiteDatabase?) {
-        /*
+
         db?.execSQL(
             "CREATE TABLE " + "store" + " ( " +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -15,11 +15,12 @@ class StoreDatabaseOpenHelper(context: Context) : SQLiteOpenHelper(context, "Sto
                     "amount INTEGER not null, " +
                     "comment text not null " +
                     ");")
-                    */
+
     }
 
-    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+        db?.execSQL("DROP TABLE IF EXISTS " + "store" + ";")
+        onCreate(db);
     }
 
 }
