@@ -14,43 +14,44 @@ import kotlin.concurrent.timer
 
 class MainActivity : AppCompatActivity() {
 
-    private var storeAmount : Int = 0
+    private var stockQuantity : Int = 0
     private var currentTime : String = "00:00:00"
     private var comment = ""
+
+    private var quantityTextView : TextView? = null
+    private val plusButton : Button? = null
+    private var minusButton : Button? = null
+    private var currentTimerView : TextView? = null
+    private var commentEditText : EditText? = null
+    private var addButton : Button? = null
 
     private val timerHandler = Handler()
     private val dateFormat = SimpleDateFormat("HH:mm:ss", Locale.US)
 
     //在庫ダミーデータ
-    private val storeList : List<Store> = listOf(
-        Store("11:40:23", 300, "キャベツ"),
-        Store("12:56:21", 30, "にんじん"))
+    private val stockList : List<Stock> = listOf(
+        Stock("11:40:23", 300, "キャベツ"),
+        Stock("12:56:21", 30, "にんじん"))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val amountTextView : TextView = findViewById(R.id.amountValue) as TextView
-        val plusButton : Button = findViewById(R.id.plusButton) as Button
-        val minusButton : Button = findViewById(R.id.minusButton) as Button
-        val currentTimerView = findViewById(R.id.currentTimer) as TextView
-        val commentEditText = findViewById(R.id.inputComment) as EditText
-        val addButton : Button = findViewById(R.id.addButton) as Button
-
         val storeManagerDB = StoreManagerDatabase(this)
 
+        initView()
 
-        plusButton.setOnClickListener {
-            if (storeAmount < 9999) {
-                storeAmount++
-                amountTextView.text = formatAmountValue(storeAmount)
+        plusButton?.setOnClickListener {
+            if (stockQuantity < 9999) {
+                stockQuantity++
+                quantityTextView?.text = formatAmountValue(stockQuantity)
             }
         }
 
-        minusButton.setOnClickListener {
-            if (storeAmount > 0) {
-                storeAmount--
-                amountTextView.text = formatAmountValue(storeAmount)
+        minusButton?.setOnClickListener {
+            if (stockQuantity > 0) {
+                stockQuantity--
+                quantityTextView?.text = formatAmountValue(stockQuantity)
             }
         }
 
@@ -58,28 +59,36 @@ class MainActivity : AppCompatActivity() {
             val calendar = Calendar.getInstance()
             timerHandler.post {
                 currentTime = dateFormat.format(calendar.getTime())
-                currentTimerView.text = currentTime
+                currentTimerView?.text = currentTime
             }
         }
 
-        addButton.setOnClickListener {
-            comment = commentEditText.text.toString()
+        addButton?.setOnClickListener {
+            comment = commentEditText?.text.toString()
             if(comment == ""){
                 comment = "未入力"
             }
-            storeManagerDB.addStore(currentTime, storeAmount, comment)
+            storeManagerDB.addStore(currentTime, stockQuantity, comment)
         }
 
-        val storeListAdapter = StoreListAdapter(applicationContext)
-        storeListAdapter.storeList = storeList
+        val stockListAdapter = StockListAdapter(applicationContext)
+        stockListAdapter.stockList = stockList
 
-        val storeListView : ListView = findViewById(R.id.storeList) as ListView
-        storeListView.adapter = storeListAdapter
+        val stockListView : ListView = findViewById(R.id.stockList) as ListView
+        stockListView.adapter = stockListAdapter
 
     }
 
-    private fun formatAmountValue(storeAmount: Int): String {
-        return NumberFormat.getNumberInstance().format(storeAmount.toLong())
+    private fun initView() {
+        quantityTextView = checkNotNull(findViewById(R.id.quantityValue))
+        minusButton = checkNotNull(findViewById(R.id.minusButton))
+        currentTimerView = checkNotNull(findViewById(R.id.currentTimer))
+        commentEditText = checkNotNull(findViewById(R.id.inputComment))
+        addButton = checkNotNull(findViewById(R.id.addButton))
+    }
+
+    private fun formatAmountValue(stockQuantity: Int): String {
+        return NumberFormat.getNumberInstance().format(stockQuantity.toLong())
     }
 
 }

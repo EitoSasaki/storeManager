@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.widget.FrameLayout
 import android.widget.TextView
 
-class StoreView : FrameLayout {
+class StockView : FrameLayout {
 
     constructor(context: Context?) : super(context)
 
@@ -18,21 +18,21 @@ class StoreView : FrameLayout {
 
     var timeTextView : TextView? = null
 
-    var amountTextView : TextView? = null
+    var quantityTextView : TextView? = null
 
     var commentTextView : TextView? = null
 
     init {
         LayoutInflater.from(context).inflate(R.layout.view_store, this)
         timeTextView = findViewById(R.id.listTime)
-        amountTextView = findViewById(R.id.listAmount)
+        quantityTextView = findViewById(R.id.listAmount)
         commentTextView = findViewById(R.id.listComment)
     }
 
-    fun setStore(store: Store) {
-        timeTextView?.text = store.time
-        amountTextView?.text = store.amount.toString()
-        commentTextView?.text = store.comment
+    fun setStore(stock: Stock) {
+        timeTextView?.text = stock.time
+        quantityTextView?.text = stock.quantity.toString()
+        commentTextView?.text = stock.comment
     }
 
 }

@@ -12,7 +12,7 @@ class StoreDatabaseOpenHelper(context: Context) : SQLiteOpenHelper(context, "Sto
             "CREATE TABLE " + "store" + " ( " +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "time text not null, "+
-                    "amount INTEGER not null, " +
+                    "quantity INTEGER not null, " +
                     "comment text not null " +
                     ");")
 
