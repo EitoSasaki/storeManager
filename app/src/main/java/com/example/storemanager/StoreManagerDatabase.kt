@@ -10,7 +10,7 @@ class StoreManagerDatabase(context: Context) {
     private val storeDatabaseOpenHelper = StoreDatabaseOpenHelper(context)
     private val database : SQLiteDatabase = storeDatabaseOpenHelper.writableDatabase
 
-    fun addStore(time: String, quantity: Int, comment: String) {
+    fun addStock(time: String, quantity: Int, comment: String) {
         val values = ContentValues()
         values.put("time", time)
         values.put("quantity", quantity )

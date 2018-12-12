@@ -44,14 +44,14 @@ class MainActivity : AppCompatActivity() {
         plusButton?.setOnClickListener {
             if (stockQuantity < 9999) {
                 stockQuantity++
-                quantityTextView?.text = formatAmountValue(stockQuantity)
+                quantityTextView?.text = formatQuantityValue(stockQuantity)
             }
         }
 
         minusButton?.setOnClickListener {
             if (stockQuantity > 0) {
                 stockQuantity--
-                quantityTextView?.text = formatAmountValue(stockQuantity)
+                quantityTextView?.text = formatQuantityValue(stockQuantity)
             }
         }
 
@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
             if(comment == ""){
                 comment = "未入力"
             }
-            storeManagerDB.addStore(currentTime, stockQuantity, comment)
+            storeManagerDB.addStock(currentTime, stockQuantity, comment)
         }
 
         val stockListAdapter = StockListAdapter(applicationContext)
@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
         addButton = checkNotNull(findViewById(R.id.addButton))
     }
 
-    private fun formatAmountValue(stockQuantity: Int): String {
+    private fun formatQuantityValue(stockQuantity: Int): String {
         return NumberFormat.getNumberInstance().format(stockQuantity.toLong())
     }
 

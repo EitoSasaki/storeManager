@@ -30,7 +30,7 @@
                 android:text="@string/quantity_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/quantityValue"
-                app:layout_constraintStart_toEndOf="@+id/quantityLabel"
+                app:layout_constraintStart_toEndOf="@+id/stockLabel"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -55,8 +55,8 @@
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            app:layout_constraintTop_toBottomOf="@+id/change_quantity_container"
-            android:id="@+id/addStoreContainer" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/change_stock_container"
+            android:id="@+id/addStockContainer" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             app:layout_constraintHorizontal_bias="1.0">
 
@@ -90,7 +90,7 @@
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp" android:id="@+id/stockListContainer"
-            app:layout_constraintTop_toBottomOf="@+id/addStoreContainer" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addStockContainer" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/otherButtonsContainer">
 
@@ -112,12 +112,12 @@
                 android:layout_height="wrap_content" android:id="@+id/clearButton"
                 app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="8dp" app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginBottom="8dp" app:layout_constraintEnd_toStartOf="@+id/showAmountButton"
+                android:layout_marginBottom="8dp" app:layout_constraintEnd_toStartOf="@+id/showQuantityButton"
         />
         <Button
                 android:text="@string/show_quantity_button_text"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content" android:id="@+id/showAmountButton"
+                android:layout_height="wrap_content" android:id="@+id/showQuantityButton"
                 app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="8dp" app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginBottom="8dp" app:layout_constraintStart_toEndOf="@+id/clearButton"

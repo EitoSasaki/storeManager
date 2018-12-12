@@ -29,7 +29,7 @@
                 android:text="@string/list_quantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/listAmount" android:layout_marginStart="8dp"
+                android:id="@+id/listQuantity" android:layout_marginStart="8dp"
                 app:layout_constraintStart_toEndOf="@+id/listTime" app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
         />
@@ -38,12 +38,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/listComment" android:layout_marginStart="8dp"
-                app:layout_constraintStart_toEndOf="@+id/listAmount" app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/listQuantity" app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
         <Button
                 android:text="@string/list_delete_button"
                 android:layout_height="wrap_content"
-                android:id="@+id/listDeleteButton"
+                android:id="@+id/deleteStockButton"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

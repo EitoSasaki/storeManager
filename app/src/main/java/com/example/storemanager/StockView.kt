@@ -25,7 +25,7 @@ class StockView : FrameLayout {
     init {
         LayoutInflater.from(context).inflate(R.layout.view_store, this)
         timeTextView = findViewById(R.id.listTime)
-        quantityTextView = findViewById(R.id.listAmount)
+        quantityTextView = findViewById(R.id.listQuantity)
         commentTextView = findViewById(R.id.listComment)
     }
 
