@@ -19,7 +19,7 @@ class StoreManagerDatabase(context: Context) {
         database.insertOrThrow("store", null, values)
     }
 
-    fun getStore() : List<Stock>? {
+    fun getStock() : List<Stock>? {
         val sql = "select * from store order by id ASC"
         val cursor : Cursor = database.rawQuery(sql, null)
         var result : List<Stock>? = null

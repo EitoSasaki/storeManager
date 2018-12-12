@@ -17,7 +17,7 @@ class StockListAdapter(private val context: Context) : BaseAdapter() {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View =
         ((convertView as? StockView) ?: StockView(context)).apply {
-            setStore(stockList[position])
+            setStock(stockList[position])
         }
 
 }
