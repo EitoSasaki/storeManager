@@ -13,22 +13,15 @@ class StoreManagerDatabase(context: Context) {
     fun addStock(time: String, quantity: Int, comment: String) {
         val values = ContentValues()
         values.put("time", time)
-        values.put("quantity", quantity )
+        values.put("quantity", quantity)
         values.put("comment", comment)
 
-        database.insertOrThrow("store", null, values)
+        database.insert("store", null, values)
     }
 
-    fun getStock() : List<Stock>? {
+    fun getStock() : Cursor {
         val sql = "select * from store order by id ASC"
-        val cursor : Cursor = database.rawQuery(sql, null)
-        var result : List<Stock>? = null
-
-        while (cursor.moveToNext()) {
-            result?.plus(Stock(cursor.getString(1), cursor.getInt(2), cursor.getString(3)))
-        }
-
-        return result
+        return database.rawQuery(sql, null)
     }
 
 }

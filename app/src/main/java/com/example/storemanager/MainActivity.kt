@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private var currentTimerView : TextView? = null
     private var commentEditText : EditText? = null
     private var addButton : Button? = null
+    private var stockListView : ListView? = null
 
     private val timerHandler = Handler()
     private val dateFormat = SimpleDateFormat("HH:mm:ss", Locale.US)
@@ -37,9 +38,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val storeManagerDB = StoreManagerDatabase(this)
-
         initView()
+
+        val storeManagerDB = StoreManagerDatabase(this)
+        readDB(storeManagerDB)
 
         plusButton?.setOnClickListener {
             increaseStock()
@@ -56,14 +58,17 @@ class MainActivity : AppCompatActivity() {
         addButton?.setOnClickListener {
             setComment()
             storeManagerDB.addStock(currentTime, stockQuantity, comment)
+            readDB(storeManagerDB)
         }
 
-        val stockListAdapter = StockListAdapter(applicationContext)
-        stockListAdapter.stockList = stockList
+    }
 
-        val stockListView : ListView = findViewById(R.id.stockList)
-        stockListView.adapter = stockListAdapter
-
+    private fun readDB(db: StoreManagerDatabase) {
+        if(db.getStock().columnCount != 0) {
+            val stockListAdapter = StockListAdapter(applicationContext)
+            stockListAdapter.stockList = stockList
+            stockListView?.adapter = stockListAdapter
+        }
     }
 
     private fun initView() {
@@ -73,6 +78,7 @@ class MainActivity : AppCompatActivity() {
         currentTimerView = checkNotNull(findViewById(R.id.currentTimer))
         commentEditText = checkNotNull(findViewById(R.id.inputComment))
         addButton = checkNotNull(findViewById(R.id.addButton))
+        stockListView = checkNotNull(findViewById(R.id.stockList))
     }
 
     private fun increaseStock() {
