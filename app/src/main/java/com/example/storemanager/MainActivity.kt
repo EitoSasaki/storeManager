@@ -78,14 +78,14 @@ class MainActivity : AppCompatActivity() {
     private fun increaseStock() {
         if (stockQuantity < 9999) {
             stockQuantity++
-            quantityTextView?.text = formatQuantityValue(stockQuantity)
+            quantityTextView?.text = formatStockQuantity(stockQuantity)
         }
     }
 
     private fun decreaseStock() {
         if (stockQuantity > 0) {
             stockQuantity--
-            quantityTextView?.text = formatQuantityValue(stockQuantity)
+            quantityTextView?.text = formatStockQuantity(stockQuantity)
         }
     }
 
@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun formatQuantityValue(stockQuantity: Int): String {
+    private fun formatStockQuantity(stockQuantity: Int): String {
         return NumberFormat.getNumberInstance().format(stockQuantity.toLong())
     }
 
