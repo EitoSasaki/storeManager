@@ -29,10 +29,10 @@ class StockView : FrameLayout {
         commentTextView = findViewById(R.id.listComment)
     }
 
-    fun setStock(stock: Stock) {
-        timeTextView?.text = stock.time
-        quantityTextView?.text = stock.quantity.toString()
-        commentTextView?.text = stock.comment
+    fun setStock(stock: Stock?) {
+        timeTextView?.text = stock?.time
+        quantityTextView?.text = stock?.quantity.toString()
+        commentTextView?.text = stock?.comment
     }
 
 }

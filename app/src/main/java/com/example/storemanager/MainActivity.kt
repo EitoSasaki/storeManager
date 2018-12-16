@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         initView()
 
         val storeManagerDB = StoreManagerDatabase(this)
-        readDB(storeManagerDB)
+        loadStockList(storeManagerDB)
 
         plusButton?.setOnClickListener {
             increaseStock()
@@ -58,15 +58,15 @@ class MainActivity : AppCompatActivity() {
         addButton?.setOnClickListener {
             setComment()
             storeManagerDB.addStock(currentTime, stockQuantity, comment)
-            readDB(storeManagerDB)
+            loadStockList(storeManagerDB)
         }
 
     }
 
-    private fun readDB(db: StoreManagerDatabase) {
-        if(db.getStock().columnCount != 0) {
+    private fun loadStockList(db: StoreManagerDatabase) {
+        if (db.getStockCount() > 0) {
             val stockListAdapter = StockListAdapter(applicationContext)
-            stockListAdapter.stockList = stockList
+            stockListAdapter.stockList = db.readStock(db.getStock())
             stockListView?.adapter = stockListAdapter
         }
     }

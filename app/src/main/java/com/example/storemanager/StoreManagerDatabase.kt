@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.util.Log
 
 class StoreManagerDatabase(context: Context) {
 
@@ -16,12 +17,35 @@ class StoreManagerDatabase(context: Context) {
         values.put("quantity", quantity)
         values.put("comment", comment)
 
-        database.insert("store", null, values)
+        var id : Long = database.insertOrThrow("store", null, values)
+        Log.d("_id", id.toString())
     }
 
     fun getStock() : Cursor {
-        val sql = "select * from store order by id ASC"
+        val sql = "select id, time, quantity, comment from store order by id ASC"
         return database.rawQuery(sql, null)
+    }
+
+    fun readStock(cursor: Cursor) : List<Stock> {
+        var isEof = cursor.moveToFirst()
+        var stockList : MutableList<Stock> = mutableListOf()
+
+        while(isEof){
+            stockList.add(
+                Stock(
+                    cursor.getString(1),
+                    cursor.getInt(2),
+                    cursor.getString(3)
+                )
+            )
+            isEof = cursor.moveToNext()
+        }
+
+        return stockList.toList()
+    }
+
+    fun getStockCount() : Int {
+        return  getStock().count
     }
 
 }

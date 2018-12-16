@@ -13,11 +13,11 @@ class StockListAdapter(private val context: Context) : BaseAdapter() {
 
     override fun getItemId(position: Int): Long = 0
 
-    override fun getItem(position: Int): Any = stockList[position]
+    override fun getItem(position: Int): Stock? = stockList.get(position)
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View =
         ((convertView as? StockView) ?: StockView(context)).apply {
-            setStock(stockList[position])
+            setStock(stockList.get(position))
         }
 
 }
