@@ -33,6 +33,7 @@ class StoreManagerDatabase(context: Context) {
         while(isEof){
             stockList.add(
                 Stock(
+                    cursor.getInt(0),
                     cursor.getString(1),
                     cursor.getInt(2),
                     cursor.getString(3)

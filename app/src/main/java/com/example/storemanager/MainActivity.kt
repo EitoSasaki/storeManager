@@ -29,11 +29,6 @@ class MainActivity : AppCompatActivity() {
     private val timerHandler = Handler()
     private val dateFormat = SimpleDateFormat("HH:mm:ss", Locale.US)
 
-    //在庫ダミーデータ
-    private val stockList : List<Stock> = listOf(
-        Stock("11:40:23", 300, "キャベツ"),
-        Stock("12:56:21", 30, "にんじん"))
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
