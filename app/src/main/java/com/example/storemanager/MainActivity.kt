@@ -3,10 +3,8 @@ package com.example.storemanager
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ListView
-import android.widget.TextView
+import android.view.View
+import android.widget.*
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -25,6 +23,8 @@ class MainActivity : AppCompatActivity() {
     private var commentEditText : EditText? = null
     private var addButton : Button? = null
     private var stockListView : ListView? = null
+    private var stockListAdapter : StockListAdapter? = null
+
 
     private val timerHandler = Handler()
     private val dateFormat = SimpleDateFormat("HH:mm:ss", Locale.US)
@@ -36,6 +36,8 @@ class MainActivity : AppCompatActivity() {
         initView()
 
         val storeManagerDB = StoreManagerDatabase(this)
+        stockListAdapter = StockListAdapter(applicationContext)
+
         loadStockList(storeManagerDB)
 
         plusButton?.setOnClickListener {
@@ -56,14 +58,24 @@ class MainActivity : AppCompatActivity() {
             loadStockList(storeManagerDB)
         }
 
+        stockListView?.setOnItemClickListener { _: AdapterView<*>, _: View, position: Int, id: Long ->
+            if (id.toInt() == R.id.deleteStockButton) {
+                var stockIDs : Array<String> = arrayOf(stockListAdapter?.stockList?.get(position)?.id.toString())
+                storeManagerDB.deleteStock(stockIDs)
+                loadStockList(storeManagerDB)
+            }
+        }
+
     }
 
     private fun loadStockList(db: StoreManagerDatabase) {
         if (db.getStockCount() > 0) {
-            val stockListAdapter = StockListAdapter(applicationContext)
-            stockListAdapter.stockList = db.readStock(db.getStock())
-            stockListView?.adapter = stockListAdapter
+            stockListAdapter?.stockList = db.readStock(db.getStock())
+        } else {
+            stockListAdapter?.stockList = listOf()
         }
+        stockListView?.adapter = stockListAdapter
+
     }
 
     private fun initView() {

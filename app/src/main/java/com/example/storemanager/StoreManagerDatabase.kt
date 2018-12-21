@@ -45,6 +45,10 @@ class StoreManagerDatabase(context: Context) {
         return stockList.toList()
     }
 
+    fun deleteStock(ids: Array<String>) {
+        database.delete("store", "id=?", ids)
+    }
+
     fun getStockCount() : Int {
         return  getStock().count
     }
