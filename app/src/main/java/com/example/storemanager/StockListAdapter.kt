@@ -1,6 +1,7 @@
 package com.example.storemanager
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,15 +26,15 @@ class StockListAdapter(private val context: Context) : BaseAdapter() {
 
         if (view == null) {
             view = inflater?.inflate(R.layout.view_store, parent, false)
-            holder = StockViewHolder(
-                view?.findViewById(R.id.listTime),
-                view?.findViewById(R.id.listQuantity),
-                view?.findViewById(R.id.listComment),
-                view?.findViewById(R.id.deleteStockButton)
-            )
+            holder = setStockView(view)
             view?.tag = holder
         } else {
             holder = view?.tag as StockViewHolder
+        }
+
+        //奇数行は背景色を変える
+        if (position % 2 == 0) {
+            view?.setBackgroundColor(Color.rgb(123, 232, 218))
         }
 
         holder.timeTextView?.text = stockList[position].time
@@ -46,6 +47,15 @@ class StockListAdapter(private val context: Context) : BaseAdapter() {
         }
 
         return view
+    }
+
+    private fun setStockView (view : View?): StockViewHolder {
+        return StockViewHolder(
+            view?.findViewById(R.id.listTime),
+            view?.findViewById(R.id.listQuantity),
+            view?.findViewById(R.id.listComment),
+            view?.findViewById(R.id.deleteStockButton)
+        )
     }
 
 }

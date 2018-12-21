@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     private var addButton : Button? = null
     private var stockListView : ListView? = null
     private var stockListAdapter : StockListAdapter? = null
-
+    private var clearButton : Button? = null
 
     private val timerHandler = Handler()
     private val dateFormat = SimpleDateFormat("HH:mm:ss", Locale.US)
@@ -66,6 +66,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        clearButton?.setOnClickListener {
+            storeManagerDB.deleteAllStock()
+            loadStockList(storeManagerDB)
+        }
+
     }
 
     private fun loadStockList(db: StoreManagerDatabase) {
@@ -86,6 +91,7 @@ class MainActivity : AppCompatActivity() {
         commentEditText = checkNotNull(findViewById(R.id.inputComment))
         addButton = checkNotNull(findViewById(R.id.addButton))
         stockListView = checkNotNull(findViewById(R.id.stockList))
+        clearButton = checkNotNull(findViewById(R.id.clearButton))
     }
 
     private fun increaseStock() {
