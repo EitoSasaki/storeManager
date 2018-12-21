@@ -1,7 +1,9 @@
 package com.example.storemanager
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Handler
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.*
@@ -25,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     private var stockListView : ListView? = null
     private var stockListAdapter : StockListAdapter? = null
     private var clearButton : Button? = null
+    private var showQuantityButton : Button? = null
 
     private val timerHandler = Handler()
     private val dateFormat = SimpleDateFormat("HH:mm:ss", Locale.US)
@@ -32,12 +35,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         initView()
 
         val storeManagerDB = StoreManagerDatabase(this)
         stockListAdapter = StockListAdapter(applicationContext)
-
         loadStockList(storeManagerDB)
 
         plusButton?.setOnClickListener {
@@ -59,16 +60,22 @@ class MainActivity : AppCompatActivity() {
         }
 
         stockListView?.setOnItemClickListener { _: AdapterView<*>, _: View, position: Int, id: Long ->
-            if (id.toInt() == R.id.deleteStockButton) {
-                var stockIDs : Array<String> = arrayOf(stockListAdapter?.stockList?.get(position)?.id.toString())
-                storeManagerDB.deleteStock(stockIDs)
-                loadStockList(storeManagerDB)
+            when(id.toInt()) {
+                R.id.deleteStockButton -> {
+                    var stockIDs: Array<String> = arrayOf(stockListAdapter?.stockList?.get(position)?.id.toString())
+                    storeManagerDB.deleteStock(stockIDs)
+                    loadStockList(storeManagerDB)
+                }
             }
         }
 
         clearButton?.setOnClickListener {
             storeManagerDB.deleteAllStock()
             loadStockList(storeManagerDB)
+        }
+
+        showQuantityButton?.setOnClickListener {
+            showTotalQuantity()
         }
 
     }
@@ -92,6 +99,7 @@ class MainActivity : AppCompatActivity() {
         addButton = checkNotNull(findViewById(R.id.addButton))
         stockListView = checkNotNull(findViewById(R.id.stockList))
         clearButton = checkNotNull(findViewById(R.id.clearButton))
+        showQuantityButton = checkNotNull(findViewById(R.id.showQuantityButton))
     }
 
     private fun increaseStock() {
@@ -121,6 +129,28 @@ class MainActivity : AppCompatActivity() {
         if(comment == ""){
             comment = "未入力"
         }
+    }
+
+    private fun showTotalQuantity() {
+        AlertDialog.Builder(this).apply {
+                setTitle("在庫の合計数量")
+            setMessage("合計" + getTotalQuantity().toString() + "です。")
+            setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
+                return@OnClickListener
+            })
+            show()
+        }
+    }
+
+    private fun getTotalQuantity(): Long {
+        var totalQuantity: Long = 0
+        var listCount: Int = stockListAdapter?.count ?: 0
+        var position: Int = 0
+        while(position < listCount){
+            totalQuantity += stockListAdapter?.stockList?.get(position)?.quantity?.toLong() ?: 0
+            position++
+        }
+        return totalQuantity
     }
 
     private fun formatStockQuantity(stockQuantity: Int): String {

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.CompoundButton
 import android.widget.ListView
 
 
@@ -41,9 +42,13 @@ class StockListAdapter(private val context: Context) : BaseAdapter() {
         holder.quantityTextView?.text = stockList[position].quantity.toString()
         holder.commentTextView?.text = stockList[position].comment
 
+        var parentView = parent as ListView
         holder.deleteButton?.setOnClickListener{
-            var parentView = parent as ListView
             parentView.performItemClick(view, position, R.id.deleteStockButton.toLong())
+        }
+
+        holder.checkBox?.setOnCheckedChangeListener { compoundButton: CompoundButton, bool: Boolean ->
+            parentView.performItemClick(view, position, R.id.checkBox.toLong())
         }
 
         return view
@@ -54,7 +59,8 @@ class StockListAdapter(private val context: Context) : BaseAdapter() {
             view?.findViewById(R.id.listTime),
             view?.findViewById(R.id.listQuantity),
             view?.findViewById(R.id.listComment),
-            view?.findViewById(R.id.deleteStockButton)
+            view?.findViewById(R.id.deleteStockButton),
+            view?.findViewById(R.id.checkBox)
         )
     }
 
